@@ -1,7 +1,10 @@
 #!/bin/bash
 
 # Your GitHub access token (replace with your own token)
-token=""
+token="yourtokenhere"
+
+# Your GitHub username
+github_username="youusernamehere"
 
 # Get the script file name
 script_file="${BASH_SOURCE[0]}"
@@ -11,6 +14,7 @@ change_github_username() {
     read -p "Enter your new GitHub username: " new_username
     sed -i "s/github_username=\"${github_username}\"/github_username=\"$new_username\"/" "$script_file"
     echo "GitHub username updated to: $new_username"
+    echo "Please restart the script to apply the changes."
 }
 
 # Function to change the GitHub token
@@ -18,12 +22,11 @@ change_github_token() {
     read -p "Enter your new GitHub access token: " new_token
     sed -i "s/token=\"${token}\"/token=\"$new_token\"/" "$script_file"
     echo "GitHub token updated."
+    echo "Please restart the script to apply the changes."
 }
 
 # Function to clone selected repositories
 clone_repositories() {
-    # Your GitHub username
-    github_username="Moealsir"
 
     # Get the list of your GitHub repositories
     repositories_json=$(curl -s -H "Authorization: token $token" "https://api.github.com/users/$github_username/repos")
@@ -96,7 +99,17 @@ while true; do
             read -p "Press Enter to continue..."
             ;;
         4)
-            echo "Exiting. Scripted by $(tput bold)Moealsir$(tput sgr0)."
+            # Save the modified script to a new file
+            new_script_file="clone_repo2"
+            cp "$script_file" "$new_script_file"
+
+            # Copy the new file to the original script's location using sudo
+            sudo cp "$new_script_file" "$script_file"
+
+            # Delete the temporary file
+            rm -f "$new_script_file"
+
+            echo "Exiting. Scripted by Moealsir."
             exit 0
             ;;
         *)
@@ -104,4 +117,3 @@ while true; do
             ;;
     esac
 done
-
