@@ -2,6 +2,12 @@
 
 This script allows you to select and clone your GitHub repositories. It uses Whiptail for a user-friendly interface and is designed to be easy to use, Also use your token for authentication.
 
+## News
+#### !!Run script using `sudo` to avoid permission issues.!! <br>
+
+	- Added a new feature to modify token without re-running the script.
+	- Added a new feature to modify username without re-running the script.
+	
 ## Prerequisites
 
 Before using this script, make sure you have the following:
